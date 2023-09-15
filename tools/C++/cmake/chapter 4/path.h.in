@@ -1,0 +1,8 @@
+#ifndef PATH_H
+#define PATH_H
+
+// version variable that will be substituted by cmake
+// This shows an example using the @ variable type
+const char* path = "@CMAKE_SOURCE_DIR@";
+
+#endif

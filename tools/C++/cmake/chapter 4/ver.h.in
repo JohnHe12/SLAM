@@ -1,0 +1,11 @@
+// write this like the header file
+
+// gurad in the sigle cpp file only be used once
+
+#ifndef VER_H
+#define VER_H
+
+// This shows an example using the $ variable type
+const char* ver = "${hello_slam_VERSION}";
+
+#endif
