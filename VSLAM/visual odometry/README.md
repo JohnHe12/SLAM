@@ -1,6 +1,6 @@
 # Visual Odometry
 
-The SLAM systems is devided into a front-end and back-end, where the front-end is also called the visual odometer, visual odometry estimates the rough camera motion based on imformation from neighboring images. The algorithms of visual odometry fall into two main categories: **characteristic point method** and **direct method**.
+The SLAM systems is devided into a front-end and back-end, where the front-end is also called the visual odometer, visual odometry estimates the rough camera motion based on imformation from neighboring images. The algorithms of visual odometry fall into two main categories: **characteristic point method** and **direct method**. some explanation of matrix can be find [here](https://note.youdao.com/ynoteshare/index.html?id=5e98f487c40ef22f90e1177f29271be5&type=note&_time=1696083374744)
 
 ## [caracteristic method](./charateristic%20point%20method/)
 
