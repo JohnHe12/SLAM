@@ -16,15 +16,24 @@ void compute_descriptor(Descriptor& descriptor,const cv::Mat& img,const Keypoint
             continue;
         }
 
-        float m01(0),m10(0);
-        for(int i=kp.pt.x-half_patch_size;i<kp.pt.x+half_patch_size;++i)
-        {
-            for(int j= kp.pt.y-half_patch_size;j<kp.pt.y+half_patch_size;++j)
-            {
-                m10+=i*img.at<uchar>(i,j);
-                m01+=j*img.at<uchar>(i,j);
-            }
-        };
+        // float m01(0),m10(0);
+        // for(int i=kp.pt.x-half_patch_size;i<kp.pt.x+half_patch_size;++i)
+        // {
+        //     for(int j= kp.pt.y-half_patch_size;j<kp.pt.y+half_patch_size;++j)
+        //     {
+        //         m10+=i*img.at<uchar>(i,j);
+        //         m01+=j*img.at<uchar>(i,j);
+        //     }
+        // };
+
+            float m01 = 0, m10 = 0;
+    for (int dx = -half_patch_size; dx < half_patch_size; ++dx) {
+      for (int dy = -half_patch_size; dy < half_patch_size; ++dy) {
+        uchar pixel = img.at<uchar>(kp.pt.y + dy, kp.pt.x + dx);
+        m10 += dx * pixel;
+        m01 += dy * pixel;
+      }
+    }
 
         //theta = acr tan(m10/m01)
         float m_squr = sqrt(m10*m10+m01*m01)+1e-18;// avoid divede zero

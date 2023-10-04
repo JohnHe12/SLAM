@@ -4,7 +4,7 @@
 
 void bfMatch(const Descriptor& descriptor_one,const Descriptor& descriptor_two,Match& matches)
 {
-    std::cout << "not finished " << std::endl;
+    //std::cout << "not finished " << std::endl;
     /*
     so this function is to use brute force to match the descriptor,
     1.loop every element in descriptor one, calculate the every distance with

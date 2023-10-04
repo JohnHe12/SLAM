@@ -13,8 +13,9 @@ find_package(OpenCV REQUIRED)
 
 include_directories(
     ${PROJECT_SOURCE_DIR}/include
+    "usr/include/eigen3"
 )
-
+option(USE_CV_ESS "calculate the esstion matrix with opencv" OFF)
 add_subdirectory(src)
 add_subdirectory(app)
 
