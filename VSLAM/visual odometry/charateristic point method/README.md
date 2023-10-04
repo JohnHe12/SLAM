@@ -2,6 +2,8 @@
 
 ## Caluculate the Essential Matrix
 
+### a. 8 point method linear solution
+
 Here is to explain in Eigen or mathmatical, how to calculate the essential matrxi, because of the x_2^T E x1= 0, so we use eight point method,Ae = 0, but if we use eigen to calculate the e, we can just get a vector whose elements is eaqual to zero, and if the point if bigger than the eight point, we can use the least square to estimate the e, so expend the A dim(8,9) to the dim(n,9), n is the number of matched points.use SVD decomposition,
 $$
   A=U\Sigma V^T
@@ -30,3 +32,17 @@ F = U\Sigma V^T---> \Sigma^{prime}=\begin{bmatrix}
 $$
 
 Note: The last colum represent the eigenvector which corresponding to the smallest eigenvalue, so in the Eigen is the first col.
+
+### 8 point method normalized coordinate
+
+## PLAN
+
+not finished.
+
+plan：
+
+1. 10/5 morning 8 point method
+
+2. afternoon pnp, icp.
+
+3. evening code, begin chapter 8.
