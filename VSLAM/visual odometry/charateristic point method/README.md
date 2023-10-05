@@ -57,7 +57,6 @@ so the transfomed point
 $$
   x'=(u_i-u_m) * sX\\
   y'=(v_-v_m) * sY
-
 $$
 
 so get the transfromtion matrix
