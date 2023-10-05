@@ -35,6 +35,63 @@ Note: The last colum represent the eigenvector which corresponding to the smalle
 
 ### 8 point method normalized coordinate
 
+First we calculate the mean value of the x,y of the matched points.
+$$
+u_{m} = \frac{1}{N}\sum x_i;
+\space v_m = \frac{1}{N} \sum y_i
+$$
+so then calculate
+$$
+meanX = \frac{1}{N}\sum |u_i-u_m|\\
+\space\\
+meanY = \frac{1}{N}\sum |v_i - v_m|
+$$
+and the last
+$$
+sX = \frac{1}{meanX}\\
+\space\\
+sY = \frac{1}{meanY}
+$$
+
+so the transfomed point
+$$
+  x'=(u_i-u_m) * sX\\
+  y'=(v_-v_m) * sY
+
+$$
+
+so get the transfromtion matrix
+$$
+\begin{pmatrix}
+  x'\\y'\\1
+\end{pmatrix}=\begin{bmatrix}
+  sX&0&-u_m*sX\\
+  0&sY&-v_m*sY\\
+  0&0&1
+\end{bmatrix}\begin{pmatrix}
+  u\\v\\1
+\end{pmatrix}\\
+ \space\\
+ \\
+T = \begin{bmatrix}
+  sX&0&-u_m*sX\\
+  0&sY&-v_m*sY\\
+  0&0&1
+\end{bmatrix}
+$$
+
+according to the 8 point methode before, the $F'$ cna be calculate carrorfing to the $x_2'^TF'x_1'=0$
+and the fundamential matrix we need can be calculate
+$$
+(T_2x_2)^TF'(T_1x_1)=x_2^TT_2^TF'T_1x_1=0\\
+\space \\
+F = T_2^TF'T_1
+$$
+
+### 7 point method
+
+not finished if i have time
+
 ## PLAN
 
 not finished.

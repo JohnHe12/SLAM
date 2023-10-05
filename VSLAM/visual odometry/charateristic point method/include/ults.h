@@ -4,6 +4,7 @@
 #include<iostream>
 #include<vector>
 #include<opencv2/opencv.hpp>
+#include"eigen3/Eigen/Core"
 typedef std::vector<u_int32_t> Desc; // 8*32 = 256
 typedef std::vector<Desc> Descriptor;
 typedef std::vector<cv::KeyPoint> Keypoints;
@@ -29,5 +30,14 @@ void compute_descriptor(Descriptor& descriptor,const cv::Mat& img,const Keypoint
  * trainindex the index in second descriptor vector, and the distance, so here is the haming distance, calculate the number of 1
 */
 void bfMatch(const Descriptor& descriptor_one,const Descriptor& descriptor_two,Match& matches);
+
+/**
+ * this function is use normalization 8 point method to calculate the fundamential matrix 
+ * @param points1 is the parameter of the vector of the matched point2f vector<point2f>
+ * @param points2 is the parameter of the vector of the matched point2f vector<point2f>
+ * @param match the matched point information vector<cv::Dmatch>, Dmatch queridex, trainindex,distance
+ * 
+*/
+Eigen::Matrix3d Findfundametialmatrix(const Keypoints& points1,const Keypoints& point2,const Match& match);
 
 #endif  
