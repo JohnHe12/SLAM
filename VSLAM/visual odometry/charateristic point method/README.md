@@ -57,7 +57,6 @@ so the transfomed point
 $$
   x'=(u_i-u_m) * sX\\
   y'=(v_-v_m) * sY
-
 $$
 
 so get the transfromtion matrix
@@ -92,6 +91,119 @@ $$
 
 not finished if i have time
 
+## PnP
+
+So it needs to optimize the pose of the camera, in order to realize the goal, the dervided needs to be calculated.
+
+### Lie group and Lie algebra
+
+before we introduce the PnP, we need to talk about the Lie group and Lie algebra. as we known, the rotation matrix can be multiple but can not add to another rotation matrix,but Lie algebra can represent the rotation matrix, and (-pi,pi), one rotation matrix maps a Lie algebra.
+
+some properties need to be kown:
+
+- $e^{\phi ^\wedge } = R\space$ this is the map rotation matrix and Lie algebra
+- $e^{\phi ^\wedge } = \cos \theta I + (1 - \cos \theta)aa^T +\sin \theta a^\wedge , \phi=\theta a,||a||=1$
+- BCH make the addition of Lie algebra possible.
+
+$$
+\ln(e^{\phi _1 ^\wedge}e^{\phi _2 ^\wedge}) = \begin{cases}
+  J_l^{-1}\phi _1 + \phi _2\\
+  J_r^{-1}\phi _2 + \phi _1\\
+\end{cases}
+$$
+
+after that, we can deviter of the rotation.
+
+so now if have a posetion in global coordinate $P$, this point in the camera coordinate is $P'$, so $P' = TP$, and the here p is 4x1 matrix $[X,Y,Z,1]^T,T=\begin{bmatrix}
+  R&t\\
+  0&1
+\end{bmatrix}$,use intrinx parameter, $Z'u = KP'$,now in the image we can obeserve a point $p_2=[u_2,v_2,1]^T$, $e = p_2-KTP$ if we have n-point so the least square can be calculate to minimize the e, subject to the T, we can optimize the T.$arg \min_{T}||p_i-KTP_i||$, so $e-->P'--->P$.
+
+$$
+\frac{\partial (Rp)}{\partial \varphi } =\lim_{x \to 0}\frac{e^{\varphi^\wedge}e^{\phi}p-e^{\phi}p }{\varphi}\\
+\space\\
+=\lim_{x \to 0}\frac{(I + \varphi^\wedge)e^{\phi}p-e^{\phi}p}{\varphi}\\
+\space\\
+=\lim_{x \to 0}\frac{\varphi^\wedge e^{\phi}p}{\varphi}=\frac{-(Rp)^{\wedge}\varphi}{\varphi}=-(Rp)^{\wedge}
+$$
+
+as the same for se(3)
+$$
+\frac{\partial (Tp)}{\partial \zeta } = \begin{bmatrix}
+  I&-(Rp+t)^{\wedge}\\
+  0^T&0^T
+\end{bmatrix}=(TP)^{\odot}
+$$
+
+### Implenment
+
+Now it is time to minimize the error subject to the T, and we need a mid tempelet param $P'$ which represent the camera coordinate
+
+$$
+\frac{\partial e}{\partial \zeta} = \frac{\partial e}{\partial P'}\frac{\partial P'}{\partial \zeta}
+$$
+according to the intrinx parameter $K$, we can calculate relationship between,u and P'.
+$$
+K = \begin{bmatrix}
+  f_x&0&c_x\\
+  0&f_y&c_y\\
+  0&0&0\\
+\end{bmatrix}\\
+\space\\
+\begin{cases}
+  u=f_X\frac{X'}{Z'} + c_X\\
+  v=f_y\frac{Y'}{Z'} + c_y
+\end{cases}
+$$
+$$
+\frac{\partial e}{\partial P'} = \begin{bmatrix}
+  \frac{\partial u}{\partial X'}&\frac{\partial u}{\partial Y'}&\frac{\partial u}{\partial Z'}\\
+  \frac{\partial v}{\partial X'}&\frac{\partial v}{\partial Y'}&\frac{\partial v}{\partial Z'}
+\end{bmatrix} = \begin{bmatrix}
+  \frac{f_x}{Z'}&0&-\frac{f_xX}{Z'^2}\\
+  0&\frac{f_x}{Z'}&-\frac{f_xY}{Z'^2}
+\end{bmatrix}
+$$
+$$
+\frac{\partial P'}{\partial \zeta} = \frac{\partial (TP)}{\partial \zeta}=(TP)^{\odot}=\begin{bmatrix}
+  I&-(Rp+t)^{\wedge}\\
+  0^T&0^T
+\end{bmatrix}
+$$
+
+because we just pick the first there dimension, so
+$$\frac{\partial P'}{\partial \zeta}=\begin{bmatrix}
+  I&-(Rp+t)^{\wedge}\\
+\end{bmatrix}$$
+
+multiple two matrix:
+$$
+\frac{\partial e}{\partial \zeta} = \frac{\partial e}{\partial P'}\frac{\partial P'}{\partial \zeta}=
+\begin{bmatrix}
+  \frac{f_x}{Z'}&0&-\frac{f_xX}{Z'^2}\\
+  0&\frac{f_x}{Z'}&-\frac{f_xY}{Z'^2}
+\end{bmatrix}
+\begin{bmatrix}
+  I&-(Rp+t)^{\wedge}
+\end{bmatrix}
+$$
+
+now the T has been optimized, at the same time we can also re-optimize the 3D-point arrording to the $\frac{\partial e}{\partial P}$.
+$$
+\frac{\partial e}{\partial P}=\frac{\partial e}{\partial P'}\frac{\partial P'}{\partial P}
+$$
+
+$$
+\frac{\partial P'}{\partial P}= \frac{\partial (RP+t)}{\partial P} = R
+$$
+
+so the result is
+$$
+\frac{\partial e}{\partial P}=\begin{bmatrix}
+  \frac{f_x}{Z'}&0&-\frac{f_xX}{Z'^2}\\
+  0&\frac{f_x}{Z'}&-\frac{f_xY}{Z'^2}
+\end{bmatrix}R
+$$
 ## PLAN
 
 not finished.
