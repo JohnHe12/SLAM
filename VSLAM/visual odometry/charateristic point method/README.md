@@ -5,6 +5,7 @@
 ### a. 8 point method linear solution
 
 Here is to explain in Eigen or mathmatical, how to calculate the essential matrxi, because of the x_2^T E x1= 0, so we use eight point method,Ae = 0, but if we use eigen to calculate the e, we can just get a vector whose elements is eaqual to zero, and if the point if bigger than the eight point, we can use the least square to estimate the e, so expend the A dim(8,9) to the dim(n,9), n is the number of matched points.use SVD decomposition,
+
 ```math
   A=U\Sigma V^T
 ```
@@ -36,17 +37,22 @@ Note: The last colum represent the eigenvector which corresponding to the smalle
 ### 8 point method normalized coordinate
 
 First we calculate the mean value of the x,y of the matched points.
+
 ```math
 u_{m} = \frac{1}{N}\sum x_i;
 \space v_m = \frac{1}{N} \sum y_i
 ```
+
 so then calculate
+
 ```math
 meanX = \frac{1}{N}\sum |u_i-u_m|\\
 \space\\
 meanY = \frac{1}{N}\sum |v_i - v_m|
 ```
+
 and the last
+
 ```math
 sX = \frac{1}{meanX}\\
 \space\\
@@ -54,12 +60,14 @@ sY = \frac{1}{meanY}
 ```
 
 so the transfomed point
+
 ```math
   x'=(u_i-u_m) * sX\\
   y'=(v_-v_m) * sY
 ```
 
 so get the transfromtion matrix
+
 ```math
 \begin{pmatrix}
   x'\\y'\\1
@@ -81,6 +89,7 @@ T = \begin{bmatrix}
 
 according to the 8 point methode before, the $F'$ cna be calculate carrorfing to the $x_2'^TF'x_1'=0$
 and the fundamential matrix we need can be calculate
+
 ```math
 (T_2x_2)^TF'(T_1x_1)=x_2^TT_2^TF'T_1x_1=0\\
 \space \\
@@ -128,6 +137,7 @@ so now if have a posetion in global coordinate $P$, this point in the camera coo
 ```
 
 as the same for se(3)
+
 ```math
 \frac{\partial (Tp)}{\partial \zeta } = \begin{bmatrix}
   I&-(Rp+t)^{\wedge}\\
@@ -142,7 +152,9 @@ Now it is time to minimize the error subject to the T, and we need a mid tempele
 ```math
 \frac{\partial e}{\partial \zeta} = \frac{\partial e}{\partial P'}\frac{\partial P'}{\partial \zeta}
 ```
+
 according to the intrinx parameter $K$, we can calculate relationship between,u and P'.
+
 ```math
 K = \begin{bmatrix}
   f_x&0&c_x\\
@@ -155,6 +167,7 @@ K = \begin{bmatrix}
   v=f_y\frac{Y'}{Z'} + c_y
 \end{cases}
 ```
+
 ```math
 \frac{\partial e}{\partial P'} = \begin{bmatrix}
   \frac{\partial u}{\partial X'}&\frac{\partial u}{\partial Y'}&\frac{\partial u}{\partial Z'}\\
@@ -164,6 +177,7 @@ K = \begin{bmatrix}
   0&\frac{f_x}{Z'}&-\frac{f_xY}{Z'^2}
 \end{bmatrix}
 ```
+
 ```math
 \frac{\partial P'}{\partial \zeta} = \frac{\partial (TP)}{\partial \zeta}=(TP)^{\odot}=\begin{bmatrix}
   I&-(Rp+t)^{\wedge}\\
@@ -172,6 +186,7 @@ K = \begin{bmatrix}
 ```
 
 because we just pick the first there dimension, so
+
 ```math
 \frac{\partial P'}{\partial \zeta}=\begin{bmatrix}
   I&-(Rp+t)^{\wedge}\\
@@ -179,6 +194,7 @@ because we just pick the first there dimension, so
 ```
 
 multiple two matrix:
+
 ```math
 \frac{\partial e}{\partial \zeta} = \frac{\partial e}{\partial P'}\frac{\partial P'}{\partial \zeta}=
 \begin{bmatrix}
@@ -191,6 +207,7 @@ multiple two matrix:
 ```
 
 now the T has been optimized, at the same time we can also re-optimize the 3D-point arrording to the $\frac{\partial e}{\partial P}$.
+
 ```math
 \frac{\partial e}{\partial P}=\frac{\partial e}{\partial P'}\frac{\partial P'}{\partial P}
 ```
@@ -200,12 +217,14 @@ now the T has been optimized, at the same time we can also re-optimize the 3D-po
 ```
 
 so the result is
+
 ```math
 \frac{\partial e}{\partial P}=\begin{bmatrix}
   \frac{f_x}{Z'}&0&-\frac{f_xX}{Z'^2}\\
   0&\frac{f_x}{Z'}&-\frac{f_xY}{Z'^2}
 \end{bmatrix}R
 ```
+
 ## PLAN
 
 not finished.
