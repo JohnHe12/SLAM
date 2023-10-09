@@ -62,7 +62,7 @@ sY = \frac{1}{meanY}
 so the transfomed point
 
 ```math
-  x'=(u_i-u_m) * sX\\
+  x'=(u_i-u_m) * sX
   y'=(v_-v_m) * sY
 ```
 
@@ -140,7 +140,7 @@ as the same for se(3)
 
 ```math
 \frac{\partial (Tp)}{\partial \zeta } = \begin{bmatrix}
-  I&-(Rp+t)^{\wedge}\\
+  I&-(RP+t)^{\wedge}\\
   0^T&0^T
 \end{bmatrix}=(TP)^{\odot}
 ```
@@ -173,8 +173,8 @@ K = \begin{bmatrix}
   \frac{\partial u}{\partial X'}&\frac{\partial u}{\partial Y'}&\frac{\partial u}{\partial Z'}\\
   \frac{\partial v}{\partial X'}&\frac{\partial v}{\partial Y'}&\frac{\partial v}{\partial Z'}
 \end{bmatrix} = \begin{bmatrix}
-  \frac{f_x}{Z'}&0&-\frac{f_xX}{Z'^2}\\
-  0&\frac{f_x}{Z'}&-\frac{f_xY}{Z'^2}
+  \frac{f_x}{Z'}&0&-\frac{f_xX'}{Z'^2}\\
+  0&\frac{f_x}{Z'}&-\frac{f_xY'}{Z'^2}
 \end{bmatrix}
 ```
 
@@ -189,7 +189,7 @@ because we just pick the first there dimension, so
 
 ```math
 \frac{\partial P'}{\partial \zeta}=\begin{bmatrix}
-  I&-(Rp+t)^{\wedge}\\
+I&-(RP+t)^{\wedge}
 \end{bmatrix}
 ```
 
@@ -202,7 +202,7 @@ multiple two matrix:
   0&\frac{f_x}{Z'}&-\frac{f_xY}{Z'^2}
 \end{bmatrix}
 \begin{bmatrix}
-  I&-(Rp+t)^{\wedge}
+  I&-(RP+t)^{\wedge}
 \end{bmatrix}
 ```
 
@@ -220,10 +220,16 @@ so the result is
 
 ```math
 \frac{\partial e}{\partial P}=\begin{bmatrix}
-  \frac{f_x}{Z'}&0&-\frac{f_xX}{Z'^2}\\
-  0&\frac{f_x}{Z'}&-\frac{f_xY}{Z'^2}
+  \frac{f_x}{Z'}&0&-\frac{f_xX'}{Z'^2}\\
+  0&\frac{f_x}{Z'}&-\frac{f_xY'}{Z'^2}
 \end{bmatrix}R
 ```
+
+## ICP
+
+### SVD
+
+accroding to the paper [Least-Squares Rigid Motion Using SVD](https://igl.ethz.ch/projects/ARAP/svd_rot.pdf)
 
 ## PLAN
 

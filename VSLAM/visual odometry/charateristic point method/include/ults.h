@@ -5,11 +5,12 @@
 #include<vector>
 #include<opencv2/opencv.hpp>
 #include"eigen3/Eigen/Core"
+#include"sophus/se3.hpp"
+
 typedef std::vector<u_int32_t> Desc; // 8*32 = 256
 typedef std::vector<Desc> Descriptor;
 typedef std::vector<cv::KeyPoint> Keypoints;
 typedef std::vector<cv::DMatch> Match;
-
 
 /**
  * this function is to create the BRIEF descriptor
@@ -39,5 +40,15 @@ void bfMatch(const Descriptor& descriptor_one,const Descriptor& descriptor_two,M
  * 
 */
 Eigen::Matrix3d Findfundametialmatrix(const Keypoints& points1,const Keypoints& point2,const Match& match);
+
+/**
+ * this function is use the depth image to optimize the T(6x1) matrix
+ * @param p3d the vector of the world coordinate 3D-point
+ * @param p2d the vectot of the p2 pixel coordidate 2D-point
+ * @param K the intrinx parameter of the camera
+*/
+Sophus::SE3d EPnP(const std::vector<Eigen::Vector3d>& p3d,const std::vector<Eigen::Vector2d>& p2d,const Eigen::Matrix3d& K);
+
+void ICP(const std::vector<Eigen::Vector3d>&pc1,const std::vector<Eigen::Vector3d>&pc2,Eigen::Matrix3d&R,Eigen::Vector3d&t);
 
 #endif  

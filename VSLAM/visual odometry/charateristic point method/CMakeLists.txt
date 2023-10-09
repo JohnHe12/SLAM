@@ -10,10 +10,18 @@ set(CMAKE_CXX_FLAGS "-std=c++14 -O2 ${SSE_FLAGS} -msse4")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 find_package(OpenCV REQUIRED)
+find_package(Sophus REQUIRED)
+find_package(Eigen3 REQUIRED)
 
+if(Sophus_FOUND)
+get_target_property(Sophus_INCLUDE Sophus::Sophus INTERFACE_INCLUDE_DIRECTORIES)
+message(STATUS ${Sophus_INCLUDE})
+endif()
 include_directories(
     ${PROJECT_SOURCE_DIR}/include
-    "usr/include/eigen3"
+    "usr/include/eigen3/Eigen"
+    ${EIGEN3_INCLUDE_DIR}
+    ${Sophus_INCLUDE}
 )
 option(USE_CV_ESS "calculate the esstion matrix with opencv" OFF)
 add_subdirectory(src)

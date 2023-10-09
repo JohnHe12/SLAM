@@ -21,5 +21,8 @@ find_package(OpenCV REQUIRED)
 
 # add_executable(for_loop for_loop.cpp)
 
-add_executable(cv_norm cv_norm.cpp)
-target_link_libraries(cv_norm ${OpenCV_LIBS})
+# add_executable(cv_norm cv_norm.cpp)
+# target_link_libraries(cv_norm ${OpenCV_LIBS})
+
+add_executable(depth depth_imread.cpp)
+target_link_libraries(depth ${OpenCV_LIBS})
