@@ -1,6 +1,6 @@
 # Cmake
 
-Hera is to talk about the c++ compile tools cmake
+Here is to talk about the c++ compile tools cmake
 this is my understanding of the cmake and the process that needs to be solved to compile or more clear to run c++ code
 
 ## [chaper 1](./chapter%201/) Add Excutable Procedure
